@@ -12,8 +12,10 @@ import java.util.Scanner;
  * */
 class CheckersGame {
 
+    private CheckersPlayer player1 = new CheckersPlayerOne();
+    private CheckersPlayer player2 = new CheckersPlayerTwo();
     private CheckersBoard board = null;
-    private CheckersPlayer currentPlayer = CheckersPlayer.PLAYER_1;
+    private CheckersPlayer currentPlayer = player1;
 
     /**
      * Constructs the CheckersGame object and automatically initializes the game board with piece locations
@@ -26,7 +28,11 @@ class CheckersGame {
      * Resets the game instance's state to the initial state. Called automatically by the default constructor.
      */
     private void newGame() {
-        this.board = new CheckersBoard();
+        CheckersPlayerOne player1 = new CheckersPlayerOne();
+        CheckersPlayerTwo player2 = new CheckersPlayerTwo();
+        this.player1 = player1;
+        this.player2 = player2;
+        this.board = new CheckersBoard(player1, player2);
     }
 
     /**
@@ -70,7 +76,7 @@ class CheckersGame {
      */
     private void nextTurn() {
         System.out.println(board);
-        System.out.println("Turn of player no. " + board.getPlayerNumber(currentPlayer));
+        System.out.println("Turn of player no. " + currentPlayer.getNumericalValue());
         System.out.println("Coordinate of piece to move:");
         int sourceXCoordinate = getIntInput("Enter X:");
         int sourceYCoordinate = getIntInput("Enter Y:");
@@ -91,11 +97,11 @@ class CheckersGame {
      * Switches the current player to the other one
      */
     private void switchPlayer() {
-        if (currentPlayer.equals(CheckersPlayer.PLAYER_1)) {
-            currentPlayer = CheckersPlayer.PLAYER_2;
+        if (currentPlayer.getNumericalValue() == player1.getNumericalValue()) {
+            currentPlayer = player2;
         }
         else {
-            currentPlayer = CheckersPlayer.PLAYER_1;
+            currentPlayer = player2;
         }
     }
 

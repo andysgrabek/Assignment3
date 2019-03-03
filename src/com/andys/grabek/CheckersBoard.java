@@ -3,36 +3,28 @@ package com.andys.grabek;
 public class CheckersBoard {
 
     private static final int BOARD_SIZE = 8;
-    private static final int PLAYER_1_VAL = 1;
-    private static final int PLAYER_2_VAL = 2;
-    private static final CheckersPlayer PLAYER_1 = CheckersPlayer.PLAYER_1;
-    private static final CheckersPlayer PLAYER_2 = CheckersPlayer.PLAYER_2;
     private int[][] board = new int[BOARD_SIZE][BOARD_SIZE];
 
-    CheckersBoard() {
+    CheckersBoard(CheckersPlayerOne playerOne, CheckersPlayerTwo playerTwo) {
         for (int i = 0; i < BOARD_SIZE; ++i) {
             for(int j = 0; j < BOARD_SIZE; ++j) {
                 if ((i == 0 || i == 2) && j % 2 == 1) {
-                    board[j][i] = getPlayerNumber(PLAYER_1);
+                    board[j][i] = playerOne.getNumericalValue();
                 }
                 else if (i == 1 && j % 2 == 0) {
-                    board[j][i] = getPlayerNumber(PLAYER_1);
+                    board[j][i] = playerOne.getNumericalValue();
                 }
                 else if ((i == 5 || i == 7) && j % 2 == 0) {
-                    board[j][i] = getPlayerNumber(PLAYER_2);
+                    board[j][i] = playerTwo.getNumericalValue();
                 }
                 else if (i == 6 && j % 2 == 1) {
-                    board[j][i] = getPlayerNumber(PLAYER_2);
+                    board[j][i] = playerTwo.getNumericalValue();
                 }
                 else {
                     board[j][i] = 0;
                 }
             }
         }
-    }
-
-    public int getPlayerNumber(CheckersPlayer player) {
-        return player.equals(CheckersPlayer.PLAYER_1) ? PLAYER_1_VAL : PLAYER_2_VAL;
     }
 
     @Override
@@ -158,7 +150,6 @@ public class CheckersBoard {
      * @param sourceY y-coordinate of the source tile containing the player's piece
      * @param targetX x-coordinate of the target empty tile
      * @param targetY y-coordinate of the target empty tile
-     * @param currentPlayer
      * @return true if the move was performed, false if not
      */
     public boolean performMove(int sourceX, int sourceY, int targetX, int targetY, CheckersPlayer currentPlayer) {
@@ -166,12 +157,7 @@ public class CheckersBoard {
             System.out.println("Source and target coordinates must be within game board bounds!");
             return false;
         }
-        if (currentPlayer.equals(CheckersPlayer.PLAYER_1)) {
-            return performPlayer1Move(sourceX, sourceY, targetX, targetY, currentPlayer);
-        }
-        else {
-            return performPlayer2Move(sourceX, sourceY, targetX, targetY, currentPlayer);
-        }
+        return currentPlayer.performMove(sourceX, sourceY, targetX, targetY, board);
     }
 
     /**
@@ -187,72 +173,6 @@ public class CheckersBoard {
                 targetX < 0 || targetY < 0 ||
                 sourceX >= BOARD_SIZE || sourceY >= BOARD_SIZE ||
                 targetX >= BOARD_SIZE || targetY >= BOARD_SIZE;
-    }
-
-    /**
-     * Attempts to perform player 2's move if the coordinates were valid
-     * @param sourceX x-coordinate of the source tile containing the player's piece
-     * @param sourceY y-coordinate of the source tile containing the player's piece
-     * @param targetX x-coordinate of the target empty tile
-     * @param targetY y-coordinate of the target empty tile
-     * @param currentPlayer
-     * @return true if the move was performed, false if not
-     */
-    private boolean performPlayer2Move(int sourceX, int sourceY, int targetX, int targetY, CheckersPlayer currentPlayer) {
-        if (board[sourceX][sourceY] != getPlayerNumber(PLAYER_2) && board[targetX][targetY] != 0) {
-            return false;
-        }
-        if (sourceY - 1 == targetY && (sourceX + 1 == targetX || sourceX - 1 == targetX)) {
-            board[sourceX][sourceY] = 0;
-            board[targetX][targetY] = getPlayerNumber(currentPlayer);
-            return true;
-        }
-        else if (sourceY - 2 == targetY && sourceX + 2 == targetX && board[sourceX + 1][sourceY - 1] == getPlayerNumber(PLAYER_1)) {
-            board[sourceX][sourceY] = 0;
-            board[sourceX + 1][sourceY - 1] = 0;
-            board[targetX][targetY] = getPlayerNumber(currentPlayer);
-            return true;
-        }
-        else if (sourceY - 2 == targetY && sourceX - 2 == targetX && board[sourceX - 1][sourceY - 1] == getPlayerNumber(PLAYER_1)) {
-            board[sourceX][sourceY] = 0;
-            board[sourceX - 1][sourceY - 1] = 0;
-            board[targetX][targetY] = getPlayerNumber(currentPlayer);
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Attempts to perform player 1's move if the coordinates were valid
-     * @param sourceX x-coordinate of the source tile containing the player's piece
-     * @param sourceY y-coordinate of the source tile containing the player's piece
-     * @param targetX x-coordinate of the target empty tile
-     * @param targetY y-coordinate of the target empty tile
-     * @param currentPlayer
-     * @return true if the move was performed, false if not
-     */
-    private boolean performPlayer1Move(int sourceX, int sourceY, int targetX, int targetY, CheckersPlayer currentPlayer) {
-        if (board[sourceX][sourceY] != getPlayerNumber(PLAYER_1) || board[targetX][targetY] != 0) {
-            return false;
-        }
-        if (sourceY + 1 == targetY && (sourceX + 1 == targetX || sourceX - 1 == targetX)) {
-            board[sourceX][sourceY] = 0;
-            board[targetX][targetY] = getPlayerNumber(currentPlayer);
-            return true;
-        }
-        else if (sourceY + 2 == targetY && sourceX + 2 == targetX && board[sourceX + 1][sourceY + 1] == getPlayerNumber(PLAYER_2)) {
-            board[sourceX][sourceY] = 0;
-            board[sourceX + 1][sourceY + 1] = 0;
-            board[targetX][targetY] = getPlayerNumber(currentPlayer);
-            return true;
-        }
-        else if (sourceY + 2 == targetY && sourceX - 2 == targetX && board[sourceX - 1][sourceY + 1] == getPlayerNumber(PLAYER_2)) {
-            board[sourceX][sourceY] = 0;
-            board[sourceX - 1][sourceY + 1] = 0;
-            board[targetX][targetY] = getPlayerNumber(currentPlayer);
-            return true;
-        }
-        return false;
     }
 
 }
