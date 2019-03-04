@@ -2,8 +2,10 @@ package com.andys.grabek;
 
 public class CheckersPlayerTwo extends CheckersPlayer {
 
+    private static final int NUMERICAL_VALUE = 2;
+
     protected CheckersPlayerTwo() {
-        super(2);
+        super(NUMERICAL_VALUE);
     }
 
     /**
