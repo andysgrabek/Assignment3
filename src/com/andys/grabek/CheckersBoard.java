@@ -5,7 +5,7 @@ public class CheckersBoard {
     private static final int BOARD_SIZE = 8;
     private int[][] board = new int[BOARD_SIZE][BOARD_SIZE];
 
-    CheckersBoard(CheckersPlayerOne playerOne, CheckersPlayerTwo playerTwo) {
+    CheckersBoard(CheckersPlayer playerOne, CheckersPlayer playerTwo) {
         for (int i = 0; i < BOARD_SIZE; ++i) {
             for(int j = 0; j < BOARD_SIZE; ++j) {
                 if ((i == 0 || i == 2) && j % 2 == 1) {
