@@ -1,4 +1,4 @@
-package com.andys.grabek;
+package main.java.com.andys.grabek;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -10,7 +10,7 @@ import java.util.Scanner;
  * @author <a href="mailto:s186472@student.dtu.dk">Andrzej Grabowski</a>
  *
  * */
-class CheckersGame {
+public class CheckersGame {
 
     private CheckersPlayer player1 = new CheckersPlayerOne();
     private CheckersPlayer player2 = new CheckersPlayerTwo();
@@ -86,11 +86,22 @@ class CheckersGame {
         if (board.performMove(sourceXCoordinate, sourceYCoordinate, targetXCoordinate, targetYCoordinate, currentPlayer)) {
             switchPlayer();
             System.out.println("Piece moved!");
+            if (isGameEnded()) {
+                System.out.println("Player " + currentPlayer.getNumericalValue() + " won!");
+                System.exit(0);
+            }
         }
         else {
             System.out.println("You must select a field with your piece as source and an empty field as target field");
         }
+    }
 
+    /**
+     * Checks if the game should end
+     * @return true if there is no more pieces of current player
+     */
+    private boolean isGameEnded() {
+        return board.numberOfPieces(currentPlayer) == 0;
     }
 
     /**
@@ -101,7 +112,7 @@ class CheckersGame {
             currentPlayer = player2;
         }
         else {
-            currentPlayer = player2;
+            currentPlayer = player1;
         }
     }
 

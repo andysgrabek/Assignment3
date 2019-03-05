@@ -1,4 +1,4 @@
-package com.andys.grabek;
+package main.java.com.andys.grabek;
 
 public class Main {
 
