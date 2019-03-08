@@ -1,0 +1,85 @@
+@startuml
+
+title Checkers Class Diagram
+
+  package main.java.com.andys.grabek {
+    class CheckersBoard {
+        {static} - BOARD_SIZE : int
+        - board : int[][]
+        + getBoardSize(): int
+        + numberOfPieces(): int
+        + getPlayerOnField(): CheckersPlayer
+        + putPlayerOnField()
+        + clearField()
+        + performMove(): boolean
+        - isMoveWithinBoardBounds(): boolean
+    }
+  }
+  
+
+  package main.java.com.andys.grabek {
+    class CheckersBoardPrinter {
+        + getAsString(): String
+        - isBoardCornerPadding(): boolean
+        - isVerticalBoardDescription(): boolean
+        - isHorizontalBoardDescription(): boolean
+        - isBoardContent(): boolean
+        - isVerticalBoardEdge(): boolean
+        - isHorizontalBoardEdge(): boolean
+        - isBoardCorner(): boolean
+    }
+  }
+  
+
+  package main.java.com.andys.grabek {
+    class CheckersGame {
+        + play()
+        - printInstruction()
+        - nextTurn()
+        - isGameEnded(): boolean
+        - switchPlayer()
+    }
+  }
+  
+
+  package main.java.com.andys.grabek {
+    abstract class CheckersPlayer {
+        - numericalValue : int
+        + getNumericalValue(): int
+        {abstract} + performMove() : boolean
+    }
+  }
+  
+
+  package main.java.com.andys.grabek {
+    class CheckersPlayerOne {
+        {static} - NUMERICAL_VALUE : int
+        + performMove(): boolean
+    }
+  }
+  
+
+  package main.java.com.andys.grabek {
+    class CheckersPlayerTwo {
+        {static} - NUMERICAL_VALUE : int
+        + performMove(): boolean
+    }
+  }
+  
+
+  package main.java.com.andys.grabek {
+    class IntReader {
+        - is : InputStream
+        + getIntInput(): int
+    }
+  }
+  
+  CheckersBoard "1" o-- "1" CheckersPlayer : player makes move on board
+  CheckersBoard "1" *-- "1" CheckersBoardPrinter
+  CheckersGame "1" *-- "2"  CheckersPlayer
+  CheckersGame "1" *-- "1" CheckersBoard : board
+  CheckersGame "1" *-- "1" IntReader : reader
+  CheckersPlayerOne -up-|> CheckersPlayer
+  CheckersPlayerTwo -up-|> CheckersPlayer
+
+@enduml

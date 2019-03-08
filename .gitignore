@@ -1,1 +1,3 @@
 *.iml
+*.kotlin_module
+ClassDiagram.plantuml
