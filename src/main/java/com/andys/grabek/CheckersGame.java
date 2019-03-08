@@ -54,35 +54,17 @@ public class CheckersGame {
     }
 
     /**
-     * Prompts the user to enter an integer number via standard input until a valid int is provided
-     *
-     * @param message text to be displayed when prompting the user to enter the number
-     * @return user-provided int value
-     */
-    private int getIntInput(String message) {
-        while(true) {
-            try {
-                System.out.println("\t" + message);
-                Scanner sc = new Scanner(System.in);
-                return sc.nextInt();
-            } catch (InputMismatchException e) {
-                System.out.println("Input must be a non-negative integer number");
-            }
-        }
-    }
-
-    /**
      * Gives the player an attempt at performing a move. Keeps prompting the given player until a valid move is performed
      */
     private void nextTurn() {
         System.out.println(board);
         System.out.println("Turn of player no. " + currentPlayer.getNumericalValue());
         System.out.println("Coordinate of piece to move:");
-        int sourceXCoordinate = getIntInput("Enter X:");
-        int sourceYCoordinate = getIntInput("Enter Y:");
+        int sourceXCoordinate = IntReader.getIntInput(System.in, "Enter X:");
+        int sourceYCoordinate = IntReader.getIntInput(System.in, "Enter Y:");
         System.out.println("Coordinate of new position:");
-        int targetXCoordinate = getIntInput("Enter X:");
-        int targetYCoordinate = getIntInput("Enter Y:");
+        int targetXCoordinate = IntReader.getIntInput(System.in, "Enter X:");
+        int targetYCoordinate = IntReader.getIntInput(System.in, "Enter Y:");
         if (board.performMove(sourceXCoordinate, sourceYCoordinate, targetXCoordinate, targetYCoordinate, currentPlayer)) {
             switchPlayer();
             System.out.println("Piece moved!");
