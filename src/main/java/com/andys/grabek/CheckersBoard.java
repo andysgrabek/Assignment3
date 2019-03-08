@@ -10,6 +10,8 @@ public class CheckersBoard {
 
     private static final int BOARD_SIZE = 8;
     private int[][] board = new int[BOARD_SIZE][BOARD_SIZE];
+    private CheckersBoardPrinter printer = new CheckersBoardPrinter(this);
+
 
     public CheckersBoard(CheckersPlayer playerOne, CheckersPlayer playerTwo) {
         for (int i = 0; i < BOARD_SIZE; ++i) {
@@ -20,10 +22,10 @@ public class CheckersBoard {
                 else if (i == 1 && j % 2 == 0) {
                     board[j][i] = playerOne.getNumericalValue();
                 }
-                else if ((i == 5 || i == 7) && j % 2 == 0) {
+                else if ((i == BOARD_SIZE - 3 || i == BOARD_SIZE - 1) && j % 2 == 0) {
                     board[j][i] = playerTwo.getNumericalValue();
                 }
-                else if (i == 6 && j % 2 == 1) {
+                else if (i == BOARD_SIZE - 2 && j % 2 == 1) {
                     board[j][i] = playerTwo.getNumericalValue();
                 }
                 else {
@@ -33,6 +35,10 @@ public class CheckersBoard {
         }
     }
 
+    /**
+     * Returns the board side size
+     * @return board side length
+     */
     public int getBoardSize() {
         return BOARD_SIZE;
     }
@@ -85,7 +91,6 @@ public class CheckersBoard {
 
     @Override
     public String toString() {
-        CheckersBoardPrinter printer = new CheckersBoardPrinter(this);
         return printer.getAsString();
     }
 
