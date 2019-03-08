@@ -28,7 +28,7 @@ public class CheckersPlayerTwo extends CheckersPlayer {
         if (board.getPlayerOnField(sourceX, sourceY) != getNumericalValue() && board.getPlayerOnField(targetX, targetY) != 0) {
             return false;
         }
-        if (sourceY - 1 == targetY && (sourceX + 1 == targetX || sourceX - 1 == targetX)) {
+        else if (sourceY - 1 == targetY && (sourceX + 1 == targetX || sourceX - 1 == targetX)) {
             board.clearField(sourceX, sourceY);
             board.putPlayerOnField(targetX, targetY, this);
             return true;
