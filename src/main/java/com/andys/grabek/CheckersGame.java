@@ -13,11 +13,13 @@ public class CheckersGame {
     private CheckersPlayer player2;
     private CheckersBoard board;
     private CheckersPlayer currentPlayer;
+    private IntReader reader;
 
     /**
      * Constructs the CheckersGame object and automatically initializes the game board with piece locations
      */
     CheckersGame() {
+        reader = new IntReader(System.in);
         player1 = new CheckersPlayerOne();
         player2 = new CheckersPlayerTwo();
         currentPlayer = player1;
@@ -49,11 +51,11 @@ public class CheckersGame {
         System.out.println(board);
         System.out.println("Turn of player no. " + currentPlayer.getNumericalValue());
         System.out.println("Coordinate of piece to move:");
-        int sourceXCoordinate = IntReader.getIntInput(System.in, "Enter X:");
-        int sourceYCoordinate = IntReader.getIntInput(System.in, "Enter Y:");
+        int sourceXCoordinate = reader.getIntInput("Enter X:");
+        int sourceYCoordinate = reader.getIntInput("Enter Y:");
         System.out.println("Coordinate of new position:");
-        int targetXCoordinate = IntReader.getIntInput(System.in, "Enter X:");
-        int targetYCoordinate = IntReader.getIntInput(System.in, "Enter Y:");
+        int targetXCoordinate = reader.getIntInput("Enter X:");
+        int targetYCoordinate = reader.getIntInput("Enter Y:");
         if (board.performMove(sourceXCoordinate, sourceYCoordinate, targetXCoordinate, targetYCoordinate, currentPlayer)) {
             switchPlayer();
             System.out.println("Piece moved!");

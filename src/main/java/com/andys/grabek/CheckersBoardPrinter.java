@@ -2,7 +2,7 @@ package main.java.com.andys.grabek;
 
 public class CheckersBoardPrinter {
     
-    CheckersBoard board;
+    private CheckersBoard board;
 
     CheckersBoardPrinter(CheckersBoard board) {
         this.board = board;

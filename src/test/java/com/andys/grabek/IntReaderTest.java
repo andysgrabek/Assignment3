@@ -13,11 +13,11 @@ class IntReaderTest {
     @Test
     void getIntInputTest() {
         ByteArrayInputStream correctInputStream = new ByteArrayInputStream("123".getBytes());
-        assertEquals(123, IntReader.getIntInput(correctInputStream, "Give int input"));
+        assertEquals(123, (new IntReader(correctInputStream)).getIntInput("Give int input"));
         int a = 3;
         try {
             ByteArrayInputStream incorrectInputStream = new ByteArrayInputStream("dawdad".getBytes());
-            IntReader.getIntInput(incorrectInputStream, "Give int input");
+            (new IntReader(incorrectInputStream)).getIntInput("Give int input");
         } catch (NoSuchElementException e) {
             System.err.println(e.getMessage());
         }
