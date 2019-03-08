@@ -1,8 +1,5 @@
 package main.java.com.andys.grabek;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
 /**
  * Class representing a game of checkers. Can be used to create more than one instance of a game.
  * The respective players' pieces are represented by their respective numbers on the board.
@@ -12,27 +9,19 @@ import java.util.Scanner;
  * */
 public class CheckersGame {
 
-    private CheckersPlayer player1 = new CheckersPlayerOne();
-    private CheckersPlayer player2 = new CheckersPlayerTwo();
-    private CheckersBoard board = null;
-    private CheckersPlayer currentPlayer = player1;
+    private CheckersPlayer player1;
+    private CheckersPlayer player2;
+    private CheckersBoard board;
+    private CheckersPlayer currentPlayer;
 
     /**
      * Constructs the CheckersGame object and automatically initializes the game board with piece locations
      */
     CheckersGame() {
-        newGame();
-    }
-
-    /**
-     * Resets the game instance's state to the initial state. Called automatically by the default constructor.
-     */
-    private void newGame() {
-        CheckersPlayerOne player1 = new CheckersPlayerOne();
-        CheckersPlayerTwo player2 = new CheckersPlayerTwo();
-        this.player1 = player1;
-        this.player2 = player2;
-        this.board = new CheckersBoard(player1, player2);
+        player1 = new CheckersPlayerOne();
+        player2 = new CheckersPlayerTwo();
+        currentPlayer = player1;
+        board = new CheckersBoard(player1, player2);
     }
 
     /**

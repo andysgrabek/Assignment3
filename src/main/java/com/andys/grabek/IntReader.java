@@ -17,8 +17,9 @@ public class IntReader {
      */
     public static int getIntInput(InputStream in, String message) {
         while(true) {
-            try (Scanner sc = new Scanner(in)) {
+            try {
                 System.out.println("\t" + message);
+                Scanner sc = new Scanner(in);
                 return sc.nextInt();
             } catch (InputMismatchException e) {
                 System.out.println("Input must be a non-negative integer number");
